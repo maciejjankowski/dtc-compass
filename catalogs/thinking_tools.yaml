@@ -1,0 +1,134 @@
+# DTC Compass Thinking Tools
+# 15 Strategic Frameworks for Digital Transformation Consulting
+
+version: "1.0"
+framework: "dtc-compass"
+
+tools:
+  porters_five_forces:
+    name: "Porter's Five Forces"
+    category: "competitive_strategy"
+    use_for: "Industry analysis, competitive dynamics, market attractiveness"
+    forces:
+      - "Threat of new entrants"
+      - "Bargaining power of suppliers"
+      - "Bargaining power of buyers"
+      - "Threat of substitutes"
+      - "Competitive rivalry"
+
+  swot:
+    name: "SWOT Analysis"
+    category: "strategic_planning"
+    use_for: "Current state assessment, strategic positioning"
+    quadrants:
+      - "Strengths (internal, positive)"
+      - "Weaknesses (internal, negative)"
+      - "Opportunities (external, positive)"
+      - "Threats (external, negative)"
+
+  value_chain:
+    name: "Value Chain Analysis"
+    category: "operations"
+    use_for: "Process optimization, cost analysis, value creation"
+    activities:
+      primary: ["Inbound logistics", "Operations", "Outbound logistics", "Marketing/Sales", "Service"]
+      support: ["Firm infrastructure", "HR management", "Technology", "Procurement"]
+
+  premortem:
+    name: "Premortem Analysis"
+    category: "risk_management"
+    use_for: "Risk identification, contingency planning"
+    process: "Imagine project failed spectacularly. What happened? Identify top 5 reasons. Plan mitigation."
+
+  first_principles:
+    name: "First Principles Thinking"
+    category: "problem_solving"
+    use_for: "Breaking down complex problems, questioning assumptions"
+    steps: ["Identify assumptions", "Break down to fundamental truths", "Rebuild from ground up"]
+
+  ooda_loop:
+    name: "OODA Loop"
+    category: "decision_making"
+    use_for: "Rapid decision-making, competitive advantage, agile response"
+    cycle: ["Observe", "Orient", "Decide", "Act"]
+
+  cynefin:
+    name: "Cynefin Framework"
+    category: "complexity"
+    use_for: "Problem classification, decision approach selection"
+    domains: ["Clear (best practice)", "Complicated (expert)", "Complex (probe)", "Chaotic (act)", "Confused"]
+
+  jobs_to_be_done:
+    name: "Jobs To Be Done"
+    category: "customer_insights"
+    use_for: "Understanding customer needs, product design"
+    focus: "What job is customer hiring this product to do?"
+
+  pareto:
+    name: "Pareto Principle (80/20)"
+    category: "prioritization"
+    use_for: "Effort prioritization, impact focus"
+    rule: "80% of effects come from 20% of causes"
+
+  cost_benefit:
+    name: "Cost-Benefit Analysis"
+    category: "financial"
+    use_for: "ROI calculation, investment decisions"
+    formula: "Benefits / Costs ≥ 3x threshold"
+
+  eisenhower_matrix:
+    name: "Eisenhower Matrix"
+    category: "prioritization"
+    use_for: "Task prioritization, urgency vs importance"
+    quadrants:
+      - "Urgent + Important: Do now"
+      - "Not urgent + Important: Schedule"
+      - "Urgent + Not important: Delegate"
+      - "Not urgent + Not important: Eliminate"
+
+  second_order_thinking:
+    name: "Second-Order Thinking"
+    category: "consequences"
+    use_for: "Anticipating consequences, avoiding unintended effects"
+    questions: ["Then what?", "And then what?", "What are long-term effects?"]
+
+  inversion:
+    name: "Inversion"
+    category: "problem_solving"
+    use_for: "Avoiding failure, identifying risks"
+    approach: "Instead of 'How to succeed?', ask 'How to guarantee failure?' then avoid those."
+
+  decision_matrix:
+    name: "Decision Matrix"
+    category: "decision_making"
+    use_for: "Multi-criteria decisions, option comparison"
+    method: "Score options against weighted criteria"
+
+  ladder_of_inference:
+    name: "Ladder of Inference"
+    category: "bias_detection"
+    use_for: "Challenging assumptions, avoiding bias"
+    rungs: ["Observable data", "Selected data", "Meanings", "Assumptions", "Conclusions", "Beliefs", "Actions"]
+
+# USAGE PATTERNS
+
+consulting_workflows:
+  strategic_assessment:
+    tools: ["swot", "porters_five_forces", "value_chain"]
+    output: "Strategic position and competitive dynamics"
+
+  risk_mitigation:
+    tools: ["premortem", "second_order_thinking", "inversion"]
+    output: "Risk inventory and mitigation plan"
+
+  prioritization:
+    tools: ["eisenhower_matrix", "pareto", "decision_matrix"]
+    output: "Prioritized action plan"
+
+  customer_insights:
+    tools: ["jobs_to_be_done", "first_principles"]
+    output: "Deep customer understanding"
+
+  decision_quality:
+    tools: ["ooda_loop", "cynefin", "ladder_of_inference"]
+    output: "Better, faster decisions"

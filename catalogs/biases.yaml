@@ -1,0 +1,422 @@
+# nSENS Cognitive Bias Catalog
+# For Claude to read and apply during decision analysis
+# Categories: decision, memory, social, speed, emotion, perception
+
+version: "1.0"
+total_biases: 47  # 39 core + 4 sales-specific + 4 additional = 47
+
+# CRITICAL: nSENS Protocol for Claude
+protocol:
+  observability:
+    - "ALWAYS log detected biases using log_decision tool"
+    - "Include: bias_name, evidence (exact text that triggered), confidence, context"
+    - "Log even when no biases detected (for calibration)"
+
+  memory_preservation:
+    - "Before analyzing, search_decisions for similar past decisions"
+    - "Reference relevant past decisions in current analysis"
+    - "Store insights for future retrieval"
+
+  self_improvement:
+    - "Track which biases you detect vs miss (via user feedback)"
+    - "Note patterns: which biases appear together"
+    - "Adjust confidence based on past accuracy"
+
+usage: |
+  When analyzing a decision, Claude MUST:
+  1. search_decisions for similar past decisions (memory)
+  2. Read this catalog and check reasoning against relevant biases
+  3. Report detected biases with evidence
+  4. log_decision with all findings (observability)
+  5. Note any patterns for future improvement (self-improvement)
+
+categories:
+  decision:
+    description: "Biases affecting how we evaluate options and make choices"
+    biases:
+      - name: Anchoring Bias
+        description: Over-relying on first piece of information encountered
+        patterns: ["first number", "initial estimate", "starting point", "based on", "original price", "anchor"]
+        severity: high
+        business_impact: "Skewed negotiations, pricing errors, inaccurate forecasts"
+        mitigation: "Generate multiple reference points before deciding"
+
+      - name: Confirmation Bias
+        description: Seeking information that confirms existing beliefs
+        patterns: ["confirms what", "as expected", "proves that", "validates our", "supports our view", "knew it"]
+        severity: critical
+        business_impact: "Missed warning signs, echo chambers, flawed validation"
+        mitigation: "Actively seek disconfirming evidence"
+
+      - name: Sunk Cost Fallacy
+        description: Continuing because of past investments rather than future value
+        patterns: ["already invested", "too far to stop", "can't waste", "put so much into", "come this far"]
+        severity: high
+        business_impact: "Throwing good money after bad, zombie projects"
+        mitigation: "Ask: If starting fresh, would I make this investment?"
+
+      - name: Planning Fallacy
+        description: Underestimating time, costs, and risks of future actions
+        patterns: ["should only take", "easily done by", "quick project", "simple task", "just need to"]
+        severity: high
+        business_impact: "Missed deadlines, budget overruns, failed projects"
+        mitigation: "Use reference class forecasting, add 50% buffer"
+
+      - name: Overconfidence Bias
+        description: Excessive confidence in own knowledge or abilities
+        patterns: ["definitely will", "100% sure", "no doubt", "guaranteed", "certain to", "obviously"]
+        severity: high
+        business_impact: "Underestimating risks, poor contingency planning"
+        mitigation: "Assign probabilities, consider what could go wrong"
+
+      - name: Loss Aversion
+        description: Feeling losses more strongly than equivalent gains
+        patterns: ["can't afford to lose", "protect what we have", "risk losing", "potential loss"]
+        severity: medium
+        business_impact: "Missed opportunities, overly conservative decisions"
+        mitigation: "Frame decisions in terms of final outcomes, not changes"
+
+  memory:
+    description: "Biases affecting how we recall and weight information"
+    biases:
+      - name: Availability Heuristic
+        description: Overweighting easily recalled information
+        patterns: ["remember when", "that time", "just happened", "recent example", "heard about"]
+        severity: medium
+        business_impact: "Decisions based on vivid but unrepresentative examples"
+        mitigation: "Seek base rates and statistical data"
+
+      - name: Hindsight Bias
+        description: Believing past events were predictable
+        patterns: ["knew it would", "was obvious", "should have seen", "predictable", "saw it coming"]
+        severity: medium
+        business_impact: "Overconfidence in future predictions, unfair blame"
+        mitigation: "Document predictions before outcomes are known"
+
+      - name: Survivorship Bias
+        description: Focusing on successes while ignoring failures
+        patterns: ["successful companies", "winners", "made it", "best practices from", "learn from success"]
+        severity: high
+        business_impact: "Copying strategies that worked by luck, ignoring failure modes"
+        mitigation: "Study failures too, ask 'what about those who tried and failed?'"
+
+  social:
+    description: "Biases affecting how we interact with others' opinions"
+    biases:
+      - name: Bandwagon Effect
+        description: Following trends because others are doing it
+        patterns: ["everyone is", "competitor does", "industry standard", "best practice", "trending", "popular"]
+        severity: high
+        business_impact: "Herd behavior, missed differentiation opportunities"
+        mitigation: "Ask: Is this right for OUR specific context?"
+
+      - name: Authority Bias
+        description: Over-trusting expert opinions without verification
+        patterns: ["expert says", "guru recommends", "thought leader", "according to", "famous investor"]
+        severity: medium
+        business_impact: "Unquestioned bad advice, cargo culting"
+        mitigation: "Verify claims independently, check incentives"
+
+      - name: Ingroup Bias
+        description: Favoring members of own group
+        patterns: ["our team", "people like us", "our kind", "insider", "one of us"]
+        severity: medium
+        business_impact: "Biased hiring, echo chambers, missed external perspectives"
+        mitigation: "Seek diverse opinions, structured evaluation criteria"
+
+      - name: Halo Effect
+        description: Letting one positive trait influence overall judgment
+        patterns: ["great at X so must be good at Y", "successful so", "from [prestigious company]"]
+        severity: medium
+        business_impact: "Poor hiring decisions, overvalued partnerships"
+        mitigation: "Evaluate each dimension independently"
+
+  speed:
+    description: "Biases affecting quick/automatic decisions"
+    biases:
+      - name: Status Quo Bias
+        description: Preference for current state over change
+        patterns: ["always done", "current approach", "worked before", "why change", "if it ain't broke", "same approach", "as before", "worked last time", "keep doing", "existing approach"]
+        severity: high
+        business_impact: "Missed innovation, slow adaptation, technical debt"
+        mitigation: "Regularly question 'why are we still doing it this way?'"
+
+      - name: Action Bias
+        description: Preference for action over inaction even when waiting is better
+        patterns: ["do something", "can't just wait", "need to act", "take action", "make a move"]
+        severity: medium
+        business_impact: "Premature decisions, wasted resources on unnecessary action"
+        mitigation: "Ask: What's the cost of waiting for more information?"
+
+      - name: Automation Bias
+        description: Over-trusting automated systems or AI outputs
+        patterns: ["system says", "algorithm recommends", "AI suggests", "tool output", "automated analysis"]
+        severity: high
+        business_impact: "Uncritical acceptance of flawed outputs"
+        mitigation: "Always verify critical automated outputs manually"
+
+      - name: Decision Fatigue
+        description: Degraded decision quality after many decisions
+        patterns: ["end of day", "so many decisions", "tired of deciding", "just pick one", "whatever"]
+        severity: medium
+        business_impact: "Poor decisions late in day/project, defaults chosen"
+        mitigation: "Make important decisions early, reduce decision load"
+
+  emotion:
+    description: "Biases driven by emotional states"
+    biases:
+      - name: Affect Heuristic
+        description: Letting current emotions influence judgment
+        patterns: ["feel good about", "bad feeling", "gut says", "vibes", "excited about"]
+        severity: medium
+        business_impact: "Decisions driven by mood rather than analysis"
+        mitigation: "Delay important decisions when emotionally charged"
+
+      - name: Optimism Bias
+        description: Overestimating likelihood of positive outcomes
+        patterns: ["will definitely work", "bound to succeed", "can't fail", "sure to", "optimistic"]
+        severity: high
+        business_impact: "Inadequate risk planning, overcommitment"
+        mitigation: "Conduct pre-mortem: assume failure, work backwards"
+
+      - name: Empathy Gap
+        description: Underestimating influence of emotional states
+        patterns: ["they should just", "rationally they would", "logically", "if they thought about it"]
+        severity: medium
+        business_impact: "Misunderstanding customer/user behavior"
+        mitigation: "Test with real users in real contexts"
+
+      - name: Endowment Effect
+        description: Overvaluing things we own or created
+        patterns: ["our solution", "we built", "my idea", "our approach", "created by us"]
+        severity: medium
+        business_impact: "Overvaluing internal solutions vs buying/partnering"
+        mitigation: "Compare objectively, consider switching costs honestly"
+
+  perception:
+    description: "Biases affecting how we perceive and frame information"
+    biases:
+      - name: Framing Effect
+        description: Different decisions based on how options are presented
+        patterns: ["90% success", "10% failure", "save X", "lose Y", "glass half"]
+        severity: medium
+        business_impact: "Manipulated by presentation, inconsistent choices"
+        mitigation: "Reframe both ways, focus on absolute outcomes"
+
+      - name: Representativeness Heuristic
+        description: Judging probability by similarity to stereotypes
+        patterns: ["looks like", "typical", "classic case of", "fits the pattern", "seems like"]
+        severity: medium
+        business_impact: "Ignoring base rates, pattern matching errors"
+        mitigation: "Check base rates before judging by similarity"
+
+      - name: Choice Overload
+        description: Paralysis or poor choices from too many options
+        patterns: ["so many options", "too many choices", "overwhelming", "which one", "hard to choose"]
+        severity: medium
+        business_impact: "Decision paralysis, random selection"
+        mitigation: "Limit options to 3-5, use elimination criteria"
+
+      - name: Fundamental Attribution Error
+        description: Attributing others' behavior to character vs situation
+        patterns: ["they're just", "that's who they are", "typical of them", "always does"]
+        severity: medium
+        business_impact: "Misjudging partners/competitors, unfair evaluations"
+        mitigation: "Consider situational factors before judging character"
+
+# Additional Critical Biases
+additional:
+  - name: Dunning-Kruger Effect
+    category: perception
+    description: Incompetent people overestimate ability, experts underestimate
+    patterns: ["easy task", "I know this", "simple problem", "no need for help", "I can handle"]
+    severity: high
+    mitigation: "Seek external validation, especially when feeling confident"
+
+  - name: Illusion of Control
+    category: decision
+    description: Believing we have more control over outcomes than we do
+    patterns: ["if we just", "we can control", "make it happen", "force the outcome"]
+    severity: medium
+    mitigation: "Identify factors outside your control, plan for variance"
+
+  - name: Hyperbolic Discounting
+    category: decision
+    description: Preferring immediate rewards over larger future ones
+    patterns: ["right now", "immediately", "today", "quick win", "instant", "short term"]
+    severity: high
+    mitigation: "Calculate long-term value, make future rewards concrete"
+
+  - name: Commitment Bias
+    category: emotion
+    description: Sticking with decisions/statements to appear consistent
+    patterns: ["said we would", "committed to", "already announced", "can't back out"]
+    severity: high
+    mitigation: "Value being right over being consistent"
+
+  - name: Base Rate Fallacy
+    category: perception
+    description: Ignoring general probability when given specific information
+    patterns: ["this case is special", "different this time", "unique situation"]
+    severity: high
+    mitigation: "Always start with base rates before adjusting"
+
+  - name: Ambiguity Effect
+    category: decision
+    description: Avoiding options with unknown probabilities
+    patterns: ["too uncertain", "unknown risk", "unclear outcome", "can't predict"]
+    severity: medium
+    mitigation: "Distinguish between risk (known probabilities) and uncertainty (unknown)"
+
+  - name: Belief Perseverance
+    category: memory
+    description: Maintaining beliefs despite contradicting evidence
+    patterns: ["still believe", "doesn't change", "original view", "despite evidence"]
+    severity: high
+    mitigation: "Actively seek and consider disconfirming evidence"
+
+  - name: Cognitive Dissonance
+    category: emotion
+    description: Discomfort from holding conflicting beliefs
+    patterns: ["but also", "on one hand", "contradictory", "conflicting"]
+    severity: medium
+    mitigation: "Acknowledge contradictions explicitly, resolve or accept"
+
+  - name: Disposition Effect
+    category: decision
+    description: Selling winners too early, holding losers too long
+    patterns: ["lock in gains", "might recover", "wait it out", "take profit"]
+    severity: high
+    mitigation: "Evaluate each position on future value, not past performance"
+
+  - name: False Consensus Effect
+    category: social
+    description: Overestimating how much others agree with us
+    patterns: ["everyone thinks", "most people", "common sense", "obvious to all"]
+    severity: medium
+    mitigation: "Actively survey others' opinions, don't assume agreement"
+
+  - name: Illusion of Validity
+    category: perception
+    description: Overconfidence in predictions based on patterns
+    patterns: ["clearly shows", "pattern indicates", "data proves", "trend predicts"]
+    severity: high
+    mitigation: "Test predictions, track accuracy, consider base rates"
+
+  - name: Deadline Pressure Bias
+    category: speed
+    description: Making rushed decisions under artificial time pressure
+    patterns: ["need to decide now", "deadline", "running out of time", "urgent"]
+    severity: high
+    mitigation: "Question if deadline is real, take time for important decisions"
+
+  - name: Priority Misalignment Bias
+    category: decision
+    description: Working on urgent but unimportant tasks
+    patterns: ["busy but", "lots to do", "firefighting", "reactive"]
+    severity: medium
+    mitigation: "Use Eisenhower matrix, focus on important not just urgent"
+
+  - name: Dunning-Kruger Environment Bias
+    category: perception
+    description: Environment that rewards confidence over competence
+    patterns: ["culture of confidence", "fake it", "appear confident", "perception matters"]
+    severity: high
+    mitigation: "Create systems that reward accuracy and acknowledge uncertainty"
+
+# SALES/CONSULTING SPECIALIZATION (4 critical biases for consulting practice)
+  - name: Recency Bias
+    category: temporal
+    description: Overweighting recent outcomes when predicting future results
+    patterns: ["last call", "just failed", "just succeeded", "didn't respond", "responded well", "no one wants", "everyone wants", "pattern doesn't work"]
+    severity: high
+    business_impact: "In consulting/sales: Recent rejection → 'nobody wants this' OR recent acceptance → 'everyone will buy'. Missing base rates, abandoning good ideas."
+    mitigation: "Track response rates (e.g., 2/10 = 20%), not most recent outcome. Ask: What's my success rate overall?"
+
+  - name: Spotlight Effect
+    category: social
+    description: Overestimating how much others notice or care about our actions
+    patterns: ["they'll think", "will judge", "desperate", "pushy", "annoying", "embarrassing", "scared to message", "shouldn't reach out"]
+    severity: high
+    business_impact: "In consulting/sales: Fear of follow-up paralysis. 'They'll think I'm desperate if I message again.' Reality: They forgot or inbox is chaos."
+    mitigation: "People are focused on themselves, not judging you. Follow-up is normal business (1st message→10% response, 3rd→80% of eventual)."
+
+  - name: Projection Bias
+    category: ambiguity
+    description: Assuming others will want or need what we want or need
+    patterns: ["they need", "they want", "customers need", "users want", "obviously need", "clearly want", "without asking", "i think they"]
+    severity: high
+    business_impact: "In product development: Build features nobody wants. Assume customer pain that doesn't exist. Validate with ourselves instead of asking."
+    mitigation: "Interview 5+ target users. Ask about pain points, not your solution. Use customer language."
+
+  - name: Courtesy Bias
+    category: social
+    description: People say positive things to be polite, not because they mean it
+    patterns: ["said interesting", "said let me think", "said we'll get back", "loi", "client said", "prospect said", "they said"]
+    severity: critical
+    business_impact: "In sales/consulting: Treat 'interesting' as validation when it's politeness. 'Get back to us' = courtesy, not commitment. False LOI validation → 3-month zombie projects."
+    mitigation: "LOI Checklist: 1) Timeline? 2) Budget discussed? 3) Next concrete step? 4) Decision maker named? 5) Pain described? All yes = real buyer."
+
+  - name: Outcome Bias
+    category: decision
+    description: Judging a decision based on its outcome rather than the quality of the decision at the time it was made.
+    patterns: ["it worked so it was right", "results prove", "ended well", "bad outcome means bad decision"]
+    severity: high
+    business_impact: "Poor post-mortems, reinforcing bad habits that got lucky, punishing good process that had bad luck."
+    mitigation: "Evaluate the decision process and information available at the time, separate from the result."
+
+  - name: Self-Serving Bias
+    category: social
+    description: Attributing positive events to one's own character but attributing negative events to external factors.
+    patterns: ["I achieved", "they failed", "market conditions caused failure", "my strategy caused success"]
+    severity: high
+    business_impact: "Leadership blind spots, failure to learn from mistakes, lack of accountability."
+    mitigation: "Ask 'What did I contribute to the failure?' and 'What external factors helped the success?'"
+
+  - name: Not-Invented-Here Syndrome
+    category: social
+    description: Aversion to contact with or use of products, research, standards, or knowledge developed outside the group.
+    patterns: ["we can build it better", "external tools are risky", "custom solution", "our unique needs"]
+    severity: medium
+    business_impact: "Wasted resources reinventing the wheel, slower time to market, ignoring industry standards."
+    mitigation: "Default to 'buy/adopt' unless 'build' provides a core competitive advantage."
+
+  - name: Groupthink
+    category: social
+    description: The practice of thinking or making decisions as a group in a way that discourages creativity or individual responsibility.
+    patterns: ["everyone agrees", "no objections", "consensus is clear", "don't rock the boat"]
+    severity: critical
+    business_impact: "Flawed decision making, ignoring risks, suppression of dissenting views, catastrophic failures."
+    mitigation: "Appoint a 'Devil's Advocate', encourage anonymous feedback, leaders speak last."
+
+  - name: Narrative Fallacy
+    category: perception
+    description: Events seem inevitable in hindsight due to story coherence.
+    patterns: ["it all makes sense", "the story is", "connected the dots", "inevitable", "destiny"]
+    severity: medium
+    business_impact: "Oversimplifying complex events, ignoring luck/randomness."
+    mitigation: "Look for facts that don't fit the narrative."
+
+  - name: Gambler's Fallacy
+    category: decision
+    description: Relying on patterns instead of accurate data (believing past independent events influence future).
+    patterns: ["due for a win", "luck has to change", "on a streak", "law of averages"]
+    severity: high
+    business_impact: "Poor risk assessment, doubling down on bad bets."
+    mitigation: "Treat each event as independent (if it is)."
+
+  - name: Primacy Effect
+    category: memory
+    description: First information weighted more than later information.
+    patterns: ["first impression", "started with", "initial thought", "early data"]
+    severity: medium
+    business_impact: "Anchoring on early data, ignoring later contradictory evidence."
+    mitigation: "Review all information together at the end."
+
+  - name: Sunflower Bias
+    category: social
+    description: Aligning with leader's views, diminishing diversity.
+    patterns: ["as [Leader] said", "agree with [Leader]", "aligning with leadership", "boss thinks"]
+    severity: high
+    business_impact: "Loss of critical feedback, echo chamber around leaders."
+    mitigation: "Leaders speak last, anonymous voting."

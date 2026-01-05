@@ -1,0 +1,214 @@
+# DTC Compass Discovery Prompts
+# Structured questions for client discovery and strategic analysis
+# Extracted from nSENS P0 Research (pre-FP, personal IP)
+
+version: "1.0"
+framework: "dtc-compass"
+
+usage: |
+  Use these prompts during client discovery to structure research and analysis.
+
+  Example:
+    dtc discover --client acme --topic market_analysis
+    dtc discover --client acme --topic competitive_landscape
+
+discovery_topics:
+
+  strategic_context:
+    name: "Strategic Context & Business Goals"
+    estimated_time: "30-45 min"
+    when_to_use: "First client meeting, strategy workshops"
+
+    questions:
+      business_goals:
+        - "What are your top 3 business objectives for the next 12-24 months?"
+        - "What does success look like? (quantified metrics)"
+        - "What's driving this initiative NOW? (timing)"
+
+      constraints:
+        - "What's the budget range?"
+        - "What's the timeline?"
+        - "What resources (people, tech) are available?"
+        - "What are non-negotiable constraints?"
+
+      stakeholders:
+        - "Who are the key decision makers?"
+        - "Who will be affected by changes?"
+        - "Who has veto power?"
+        - "What are their individual success criteria?"
+
+      current_state:
+        - "What's working well today?"
+        - "What's causing pain?"
+        - "What's been tried before? Why didn't it work?"
+        - "What assumptions are we making?"
+
+  market_analysis:
+    name: "Market & Competitive Landscape"
+    estimated_time: "45-60 min"
+    when_to_use: "Market entry, positioning, competitive strategy"
+
+    questions:
+      market_size:
+        - "What is the Total Addressable Market (TAM)?"
+        - "What is realistically serviceable? (SAM)"
+        - "What can we actually capture? (SOM)"
+
+      growth_trends:
+        - "What's the historical growth rate (3-5 years)?"
+        - "What's projected growth (3-5 years)?"
+        - "What trends are driving/hindering growth?"
+
+      competitors:
+        - "Who are the top 3-5 competitors (direct + indirect)?"
+        - "What are their strengths/weaknesses?"
+        - "What do customers complain about with current solutions?"
+        - "Where are competitors vulnerable?"
+
+      positioning:
+        - "What needs are unmet by current solutions?"
+        - "What can we do 10x better than alternatives?"
+        - "What's our unique differentiation?"
+
+  technology_assessment:
+    name: "Technology & Architecture Assessment"
+    estimated_time: "60-90 min"
+    when_to_use: "Migration, modernization, architecture decisions"
+
+    questions:
+      current_state:
+        - "What's the current tech stack?"
+        - "What's the architecture (monolith, microservices, etc.)?"
+        - "What are known technical debt items?"
+        - "What integration points exist?"
+
+      pain_points:
+        - "What's causing performance issues?"
+        - "What's preventing scaling?"
+        - "What security/compliance gaps exist?"
+        - "What's manual that should be automated?"
+
+      future_state:
+        - "What capabilities do we need in 2-3 years?"
+        - "What technologies are mandatory vs nice-to-have?"
+        - "What skills gaps exist in the team?"
+        - "What's the risk tolerance for new tech?"
+
+      constraints:
+        - "What can't change? (legacy integrations, regulations)"
+        - "What's the migration budget?"
+        - "What's the acceptable downtime?"
+        - "What data can't be moved?"
+
+  roi_validation:
+    name: "ROI & Business Case Validation"
+    estimated_time: "30-45 min"
+    when_to_use: "Before proposals, performance contracts, business cases"
+
+    questions:
+      costs:
+        - "What are current costs (breakdown by category)?"
+        - "What are projected costs for proposed solution?"
+        - "What are hidden costs (training, migration, downtime)?"
+        - "What's the total cost of ownership (3 years)?"
+
+      benefits:
+        - "What's the quantified benefit? (revenue increase, cost reduction)"
+        - "What's the timeline to realize benefits?"
+        - "What efficiency gains are measurable?"
+        - "What strategic value is created (hard to quantify)?"
+
+      risks:
+        - "What's the probability of success?"
+        - "What could go wrong? (premortem)"
+        - "What's plan B if primary approach fails?"
+        - "What are early warning signs of failure?"
+
+      validation:
+        - "What assumptions must be true for ROI ≥ 3x?"
+        - "How can we test these assumptions cheaply?"
+        - "What are comparable case studies?"
+        - "What metrics will we track?"
+
+  change_readiness:
+    name: "Organizational Change Readiness"
+    estimated_time: "30-45 min"
+    when_to_use: "Transformation projects, org change, culture shifts"
+
+    questions:
+      culture:
+        - "How does the organization handle change?"
+        - "What was the last major change? How did it go?"
+        - "Who are the champions vs resistors?"
+        - "What's the risk tolerance?"
+
+      capabilities:
+        - "What skills exist internally?"
+        - "What training is needed?"
+        - "What's the bandwidth for change?"
+        - "What competing initiatives exist?"
+
+      governance:
+        - "Who owns the transformation?"
+        - "How are decisions made?"
+        - "What's the escalation path for blockers?"
+        - "How is progress tracked and reported?"
+
+      adoption:
+        - "What's the communication strategy?"
+        - "How will we drive adoption?"
+        - "What incentives exist for change?"
+        - "How do we sustain change long-term?"
+
+  failure_modes:
+    name: "Failure Mode Analysis"
+    estimated_time: "30-45 min"
+    when_to_use: "Risk assessment, premortem, contingency planning"
+
+    questions:
+      historical:
+        - "What similar initiatives failed here before? Why?"
+        - "What did competitors try that failed?"
+        - "What industry failures are relevant?"
+
+      premortem:
+        - "Imagine this fails spectacularly. What happened?"
+        - "What are the top 5 reasons for failure?"
+        - "What early warning signs would we see?"
+        - "What could we do to prevent each failure mode?"
+
+      dependencies:
+        - "What external dependencies exist?"
+        - "What single points of failure?"
+        - "What happens if key person leaves?"
+        - "What happens if budget gets cut 50%?"
+
+      mitigation:
+        - "What's plan B for each major risk?"
+        - "What can we derisk early?"
+        - "What contingencies should exist?"
+        - "What kill criteria should trigger stop?"
+
+# USAGE WORKFLOW
+
+workflow:
+  discovery_call:
+    sequence:
+      1. strategic_context (always first)
+      2. Choose 1-2 from: market_analysis, technology_assessment, roi_validation
+      3. failure_modes (always last for premortem)
+
+    output: "client/{name}/discovery_YYYY_MM_DD.md"
+
+  deep_dive:
+    sequence:
+      1. One focused topic (60-90 min deep dive)
+      2. Validate assumptions with Curie persona
+      3. Quantify ROI with Midas persona
+
+    output: "client/{name}/deep_dive_{topic}_YYYY_MM_DD.md"
+
+  continuous:
+    frequency: "Every major decision point"
+    topics: ["failure_modes", "roi_validation"]
+    purpose: "Continuous validation and risk assessment"
