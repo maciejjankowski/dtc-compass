@@ -2,7 +2,7 @@
 
 **IP-protected consulting toolkit for high-level Digital Transformation consulting.**
 
-Extracted from nSENS framework (personal IP, created before Future Processing employment).
+Extracted from nSENS framework (personal IP).
 
 ---
 
