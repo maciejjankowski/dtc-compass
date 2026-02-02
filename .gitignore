@@ -18,3 +18,7 @@ __pycache__/
 # OS
 .DS_Store
 Thumbs.db
+
+# DTC Compass state (local, per-machine)
+_state/
+_personal/
